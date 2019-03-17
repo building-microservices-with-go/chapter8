@@ -12,22 +12,12 @@ import (
 func main() {
 	roots := x509.NewCertPool()
 
-	rootCert, err := ioutil.ReadFile("../generate_keys/root_cert.pem")
+	rootCert, err := ioutil.ReadFile("../certs/1_root/certs/ca.cert.pem")
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	ok := roots.AppendCertsFromPEM(rootCert)
-	if !ok {
-		panic("failed to parse root certificate")
-	}
-
-	applicationCert, err := ioutil.ReadFile("../generate_keys/application_cert.pem")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	ok = roots.AppendCertsFromPEM(applicationCert)
 	if !ok {
 		panic("failed to parse root certificate")
 	}

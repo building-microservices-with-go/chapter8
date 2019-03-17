@@ -65,33 +65,40 @@ echo
 echo Create the application key
 echo ---
 openssl genrsa \
-    -out 3_application/private/www.example.com.key.pem 2048
-chmod 444 3_application/private/www.example.com.key.pem
+    -out 3_application/private/localhost.key.pem 2048
+chmod 444 3_application/private/localhost.key.pem
 
 echo 
 echo Create the application signing request
 echo ---
 openssl req -config 2_intermediate/openssl.cnf \
-      -key 3_application/private/www.example.com.key.pem \
-      -new -sha256 -out 3_application/csr/www.example.com.csr.pem
+      -key 3_application/private/localhost.key.pem \
+      -new -sha256 -out 3_application/csr/localhost.csr.pem
 
 echo 
 echo Create the application certificate
 echo ---
 openssl ca -config 2_intermediate/openssl.cnf \
       -extensions server_cert -days 375 -notext -md sha256 \
-      -in 3_application/csr/www.example.com.csr.pem \
-      -out 3_application/certs/www.example.com.cert.pem
-chmod 444 3_application/certs/www.example.com.cert.pem
+      -in 3_application/csr/localhost.csr.pem \
+      -out 3_application/certs/localhost.cert.pem
+chmod 444 3_application/certs/localhost.cert.pem
 
 echo 
 echo Validate the certificate
 echo ---
 openssl x509 -noout -text \
-      -in 3_application/certs/www.example.com.cert.pem
+      -in 3_application/certs/localhost.cert.pem
+
+echo 
+echo Create the chain file
+echo ---
+cat 3_application/certs/localhost.cert.pem \
+      2_intermediate/certs/ca-chain.cert.pem > 3_application/certs/localhost-chain.cert.pem
+chmod 444 3_application/certs/localhost-chain.cert.pem
 
 echo 
 echo Validate the certificate has the correct chain of trust
 echo ---
 openssl verify -CAfile 2_intermediate/certs/ca-chain.cert.pem \
-      3_application/certs/www.example.com.cert.pem
+      3_application/certs/localhost.cert.pem
