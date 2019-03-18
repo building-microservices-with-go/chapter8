@@ -9,3 +9,6 @@ V	270310114953Z		1007	unknown	/C=GB/ST=England/O=Alice Ltd/CN=localhost
 V	270311053537Z		1008	unknown	/C=GB/ST=England/O=Alice Ltd/CN=Intermediate
 V	270312132151Z		1009	unknown	/C=GB/ST=England/O=Alice Ltd/CN=stuff
 V	290314162730Z		100A	unknown	/C=GB/ST=England/O=Alice Ltd/CN=localhost
+V	290315072126Z		100B	unknown	/C=GB/ST=England/O=Alice Ltd/CN=localhost
+V	290315072445Z		100C	unknown	/C=GB/ST=England/O=Alice Ltd/CN=front.localhost
+V	290315073913Z		100D	unknown	/C=GB/ST=England/O=Alice Ltd/CN=localhost
